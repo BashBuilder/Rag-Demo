@@ -109,16 +109,6 @@ print("-" * 50)
 #     max_new_tokens=512,
 # )
 
-# endpoint = HuggingFaceEndpoint(
-#     repo_id="deepseek-ai/DeepSeek-R1",
-#     task="conversational",
-#     provider="novita",
-#     huggingfacehub_api_token=api_key,
-#     temperature=0.1,
-#     max_new_tokens=512,
-# )
-# llm = ChatHuggingFace(llm=endpoint)
-
 llm = ChatDeepSeek(
     model="deepseek-chat",
     api_key=api_key,
