@@ -1,10 +1,13 @@
 import os
+import traceback
 
 from dotenv import load_dotenv
 from langchain_chroma import Chroma
 from langchain_classic.chains import RetrievalQA
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_huggingface import HuggingFaceEndpoint
+from langchain_deepseek import ChatDeepSeek
+from langchain_huggingface import (
+    HuggingFaceEmbeddings,
+)
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 load_dotenv()
@@ -88,12 +91,39 @@ for i, result in enumerate(results):
 print("Step 6: Set up RAG with Hugging Face")
 print("-" * 50)
 
-llm = HuggingFaceEndpoint(
-    repo_id="google/flan-t5-xxl",
-    task="text2text-generation",
-    huggingfacehub_api_token=api_key,
-    temperature=0,
-    max_new_tokens=512,
+# endpoint = HuggingFaceEndpoint(
+#     # repo_id="Qwen/Qwen2.5-7B-Instruct",
+#     repo_id="deepset/roberta-base-squad2",
+#     task="text-generation",
+#     huggingfacehub_api_token=api_key,
+#     temperature=0.1,
+#     max_new_tokens=512,
+# )
+# llm = ChatHuggingFace(llm=endpoint)
+
+# llm = HuggingFaceEndpoint(
+#     repo_id="deepseek-ai/DeepSeek-R1",
+#     task="text2text-generation",
+#     huggingfacehub_api_token=api_key,
+#     temperature=0,
+#     max_new_tokens=512,
+# )
+
+# endpoint = HuggingFaceEndpoint(
+#     repo_id="deepseek-ai/DeepSeek-R1",
+#     task="conversational",
+#     provider="novita",
+#     huggingfacehub_api_token=api_key,
+#     temperature=0.1,
+#     max_new_tokens=512,
+# )
+# llm = ChatHuggingFace(llm=endpoint)
+
+llm = ChatDeepSeek(
+    model="deepseek-chat",
+    api_key=api_key,
+    temperature=0.1,
+    max_tokens=512,
 )
 
 qa_chain = RetrievalQA.from_chain_type(
@@ -113,5 +143,7 @@ for question in questions:
     try:
         result = qa_chain.invoke({"query": question})
         print(f"Answer: {result['result']}\n")
-    except Exception as e:
-        print(f"Error processing question '{question}': {e}\n")
+    except ValueError as e:
+        # print("Error processing question:", e)
+        print(f"Error type: {type(e).__name__}")
+        traceback.print_exc()
