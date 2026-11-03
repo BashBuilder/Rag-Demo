@@ -54,7 +54,9 @@ for i, chunk in enumerate(chunks):
 print("Step 3: Initialize Embeddings")
 print("-" * 50)
 
+# embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+
 print("Embeddings Initialized.", embeddings.model_name)
 
 # step 4 : Create and  populate vector store
@@ -95,7 +97,9 @@ llm = HuggingFaceEndpoint(
 )
 
 qa_chain = RetrievalQA.from_chain_type(
-    llm=llm, chain_type="stuff", retriver=vector_store.as_retriever()
+    llm=llm,
+    chain_type="stuff",
+    retriever=vector_store.as_retriever(),
 )
 
 questions = [
@@ -107,7 +111,7 @@ questions = [
 for question in questions:
     print(f"Question: {question}")
     try:
-        answer = qa_chain.run(question)
-        print(f"Answer: {answer}\n")
+        result = qa_chain.invoke({"query": question})
+        print(f"Answer: {result['result']}\n")
     except Exception as e:
         print(f"Error processing question '{question}': {e}\n")
