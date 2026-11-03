@@ -75,21 +75,21 @@ print(f"Number of texts {len(chunks)}")
 print(f" Embedding Dimension {len(embeddings.embed_query('test'))} ")
 
 # step 5 : Similarity Search Example
-print("Step 5: Similarity Search Example")
-print("-" * 50)
+# print("Step 5: Similarity Search Example")
+# print("-" * 50)
 
-query = "What is reinforcemnt  learning"
-results = vector_store.similarity_search(query, k=2)
+# query = "What is reinforcemnt  learning"
+# results = vector_store.similarity_search(query, k=2)
 
-print(f"Query: {query}")
-print(f"Top {len(results)} Results:")
-for i, result in enumerate(results):
-    print(f"Result {i + 1}: {result.page_content}\n")
-    print("-" * 50)
+# print(f"Query: {query}")
+# print(f"Top {len(results)} Results:")
+# for i, result in enumerate(results):
+#     print(f"Result {i + 1}: {result.page_content}\n")
+#     print("-" * 50)
 
 # step 6 set up rag with hugging face
-print("Step 6: Set up RAG with Hugging Face")
-print("-" * 50)
+# print("Step 6: Set up RAG with Hugging Face")
+# print("-" * 50)
 
 # endpoint = HuggingFaceEndpoint(
 #     # repo_id="Qwen/Qwen2.5-7B-Instruct",

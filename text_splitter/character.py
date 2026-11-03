@@ -35,8 +35,8 @@ Machine Learning has numerous real-world applications:
 
 splitter = CharacterTextSplitter(
     separator="\n\n",
-    chunk_size=200,
-    chunk_overlap=50,
+    chunk_size=150,
+    chunk_overlap=30,
 )
 
 chunks = splitter.split_text(sample_text)
