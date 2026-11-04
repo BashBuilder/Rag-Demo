@@ -33,7 +33,7 @@ splitter = RecursiveCharacterTextSplitter(
     chunk_size=150,
     chunk_overlap=30,
     length_function=len,
-    separators=["\n\n", "\n", ". ", " "],
+    separators=["\n\n", "\n", " ", " "],
 )
 
 chunks = splitter.split_text(sample_text)
